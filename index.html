@@ -6,7 +6,8 @@
 <title>La Noche del Millón · Entradas</title>
 <meta property="og:title" content="La Noche del Millón · Entradas">
 <meta property="og:description" content="Gala de cierre de año de la FEC · Sábado 12/12 · Calígula. Elegí tu número y participá por un Toyota Yaris Cross 0 km.">
-<meta property="og:image" content="auto.png">
+<meta property="og:image" content="https://nochedelmillon.github.io/auto.webp">
+<meta name="description" content="Gala de cierre de año de la FEC · Sábado 12/12 · Calígula. Elegí tu número y participá por un Toyota Yaris Cross 0 km.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Cinzel:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -101,6 +102,33 @@ footer{margin-top:14px;text-align:center;font-size:11px;letter-spacing:.2em;text
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(140px);background:var(--ink);color:#0A0D26;padding:10px 18px;font-size:13px;transition:transform .2s;z-index:5}
 .toast.on{transform:translateX(-50%) translateY(0)}
 @media (min-width:480px){.grid{grid-template-columns:repeat(8,minmax(0,1fr))}}
+
+.check{display:flex;gap:10px;align-items:flex-start;margin:4px 0 16px;font-size:13px;color:var(--ink2);line-height:1.5;cursor:pointer}
+.check input{width:20px;height:20px;accent-color:#C9A94E;flex:none;margin-top:1px}
+.check a{color:var(--gold)}
+.ticket{border:1px solid var(--gold-line);outline:1px solid rgba(201,169,78,.22);outline-offset:-8px;padding:22px 18px;text-align:center;background:radial-gradient(ellipse at 50% 0%,rgba(22,28,74,.9),rgba(10,13,38,.9))}
+.ticket .tn{font-family:'Bodoni Moda',serif;font-size:58px;line-height:1;margin:6px 0 4px}
+.ticket .tname{font-size:15px;color:var(--ink)}
+.qr{background:#fff;padding:10px;border-radius:4px;display:inline-block;margin:16px auto 10px;line-height:0}
+.qr img,.qr canvas{width:168px!important;height:168px!important}
+.pill{display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:6px 12px;border-radius:20px;font-weight:600}
+.pill.pend{background:rgba(224,168,74,.16);color:#F0C27A;border:1px solid rgba(224,168,74,.5)}
+.pill.paid{background:rgba(95,196,140,.16);color:#8FE0B4;border:1px solid rgba(95,196,140,.5)}
+.pill.recv{background:rgba(160,180,255,.14);color:#C3CEFF;border:1px solid rgba(160,180,255,.4)}
+.deadline{margin-top:14px;font-size:13px;color:#F0C27A;line-height:1.5}
+.file{display:flex;align-items:center;justify-content:center;gap:10px;border:1px dashed var(--gold-line);padding:20px 14px;cursor:pointer;color:var(--ink2);font-size:14px;text-align:center;margin-bottom:12px;background:rgba(10,13,38,.6)}
+.file input{display:none}
+.file.has{border-style:solid;color:var(--ink)}
+.btn.alt{background:none;border:1px solid var(--gold-line);color:var(--gold);margin-top:10px}
+.ok{border:1px solid rgba(95,196,140,.5);background:rgba(95,196,140,.1);padding:14px;text-align:center;font-size:14px;line-height:1.55;color:#CFF3DE}
+.bases{margin-top:40px;border-top:1px solid var(--gold-soft);padding-top:8px}
+.bases summary{cursor:pointer;list-style:none;font-family:'Cinzel',serif;letter-spacing:.2em;font-size:13px;color:var(--gold);text-transform:uppercase;padding:12px 0;display:flex;justify-content:space-between}
+.bases summary::-webkit-details-marker{display:none}
+.bases summary:after{content:"+";font-family:'Montserrat',sans-serif}
+.bases[open] summary:after{content:"–"}
+.bases ol{margin:6px 0 0;padding-left:20px;font-size:13px;line-height:1.65;color:var(--ink2)}
+.bases li{margin-bottom:10px}
+.bases li b{color:var(--ink);font-weight:600}
 </style>
 </head>
 <body>
@@ -124,7 +152,7 @@ footer{margin-top:14px;text-align:center;font-size:11px;letter-spacing:.2em;text
       <div class="floor"></div>
     </div>
     <div class="prize">Se sortea un Toyota Yaris Cross 0 km</div>
-    <div class="prize2">Color negro · gentileza de Toyota del Parque</div>
+    <div class="prize2">Color negro · Toyota del Parque</div>
 
     <div class="facts">
       <div><span class="small">Sábado</span><strong>12·12</strong></div>
@@ -138,6 +166,7 @@ footer{margin-top:14px;text-align:center;font-size:11px;letter-spacing:.2em;text
     </div>
   </header>
 
+  <div id="buy">
   <section class="step" id="s1">
     <div class="sh"><span class="n foil">I</span><h2>Elegí tu número</h2></div>
     <div class="legend"><span><i style="border:1px solid var(--gold-soft)"></i>Disponible</span><span><i style="background:var(--taken)"></i>Vendido</span><span><i style="background:var(--foil)"></i>Tu elección</span></div>
@@ -146,12 +175,13 @@ footer{margin-top:14px;text-align:center;font-size:11px;letter-spacing:.2em;text
   </section>
 
   <section class="step" id="s2">
-    <div class="sh"><span class="n foil">II</span><h2>Tus datos</h2></div>
-    <p class="hint">A nombre de quien figura la entrada y el número de sorteo.</p>
+    <div class="sh"><span class="n foil">II</span><h2>Datos del titular</h2></div>
+    <p class="hint">La entrada y el número de sorteo quedan a nombre del titular.</p>
     <div class="field"><label for="nom">Nombre y apellido</label><input id="nom" autocomplete="name" placeholder="Como figura en tu DNI"></div>
     <div class="field"><label for="dni">DNI</label><input id="dni" inputmode="numeric" placeholder="Sin puntos"></div>
     <div class="field"><label for="tel">Celular</label><input id="tel" inputmode="tel" autocomplete="tel" placeholder="Ej: 383 4123456"></div>
-    <div class="field"><label for="acomp">Acompañante <span style="letter-spacing:.1em;text-transform:none">(opcional)</span></label><input id="acomp" placeholder="Nombre y apellido"></div>
+    <div class="field"><label for="mail">Mail</label><input id="mail" type="email" inputmode="email" autocomplete="email" placeholder="Ahí te llega tu entrada"></div>
+    <div class="field"><label for="acomp">Invitados <span style="letter-spacing:.1em;text-transform:none">(opcional)</span></label><input id="acomp" placeholder="Nombre y apellido de quienes te acompañan"></div>
   </section>
 
   <section class="step" id="s3">
@@ -160,33 +190,74 @@ footer{margin-top:14px;text-align:center;font-size:11px;letter-spacing:.2em;text
       <div class="medal"><small>Nº</small><b class="foil" id="mNum">—</b></div>
       <p id="sumTxt">Elegí un número y completá tus datos.</p>
     </div>
+    <label class="check"><input type="checkbox" id="acepto"><span>Leí y acepto las <a href="#bases" id="verBases">bases y condiciones</a>.</span></label>
     <button class="btn" id="reserve" aria-disabled="true">Reservar</button>
-    <p class="note" id="resNote">El número queda a tu nombre al instante y nadie más lo puede elegir.</p>
+    <p class="note">El número queda a tu nombre al instante y nadie más lo puede elegir. Tenés 12 horas para pagar y enviar el comprobante.</p>
   </section>
+  </div>
 
   <div id="after" hidden>
     <section class="step" id="s4">
-      <div class="sh"><span class="n foil">IV</span><h2>Hacé el pago</h2></div>
-      <div class="pay" id="pay"></div>
+      <div class="sh"><span class="n foil">✓</span><h2>Tu entrada</h2></div>
+      <div class="ticket">
+        <span class="small">La noche del Millón · Nº</span>
+        <div class="tn foil" id="tNum">—</div>
+        <div class="tname" id="tName"></div>
+        <div class="qr" id="qr"></div>
+        <div><span class="pill pend" id="tState">Pendiente de pago</span></div>
+        <div class="deadline" id="tDeadline"></div>
+        <p class="note" style="margin-top:12px">Guardá esta pantalla: el código QR verifica que tu entrada es legítima. También te llega por mail.</p>
+      </div>
     </section>
-    <section class="step" id="s5">
-      <div class="sh"><span class="n foil">V</span><h2>Mandá el comprobante</h2></div>
-      <a class="btn" id="send" href="#" target="_blank" rel="noopener">Enviar comprobante por WhatsApp</a>
-      <p class="note">Se abre WhatsApp con tus datos ya escritos: adjuntá la foto o el PDF del comprobante y enviá.<br>Tu entrada queda confirmada cuando verificamos el pago.</p>
-    </section>
+
+    <div id="payBlock">
+      <section class="step" id="s5">
+        <div class="sh"><span class="n foil">IV</span><h2>Hacé el pago</h2></div>
+        <div class="pay" id="pay"></div>
+      </section>
+      <section class="step" id="s6">
+        <div class="sh"><span class="n foil">V</span><h2>Enviá el comprobante</h2></div>
+        <div id="upBox">
+          <label class="file" id="fileLbl"><input type="file" id="file" accept="image/*,application/pdf"><span id="fileTxt">Tocá para elegir la foto o el PDF del comprobante</span></label>
+          <button class="btn" id="upBtn" aria-disabled="true">Enviar comprobante</button>
+        </div>
+        <div class="ok" id="upOk" hidden>Recibimos tu comprobante. Te confirmamos la entrada cuando verifiquemos el pago.</div>
+        <a class="btn alt" id="wa" href="#" target="_blank" rel="noopener">¿No podés subirlo? Envialo por WhatsApp</a>
+      </section>
+    </div>
+    <p class="note"><a href="#" id="otra" style="color:var(--gold)">Comprar otra entrada con el mismo titular</a></p>
   </div>
 
-  <svg class="mts" viewBox="0 0 560 60" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="mg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9A94E" stop-opacity=".55"/><stop offset=".25" stop-color="#1A1E3E"/><stop offset="1" stop-color="#05071A"/></linearGradient></defs><path d="M0 60V44l40-14 30 10 48-26 34 18 26-8 46 22 52-34 40 24 30-12 44 20 40-28 46 22 28-8 56 26V60z" fill="url(#mg)"/></svg>
-  <footer>Federación Económica de Catamarca<br>Calígula · San Fernando del Valle de Catamarca<br>Etiqueta: elegante de noche</footer>
-</div>
-<div class="toast" id="toast"></div>
+  <details class="bases" id="bases">
+    <summary>Bases y condiciones</summary>
+    <ol>
+      <li><b>Organiza</b> la Federación Económica de Catamarca (FEC). La Noche del Millón es la gala de cierre de año 2026 y se realiza el sábado 12 de diciembre de 2026 a las 20 h en Calígula, San Fernando del Valle de Catamarca.</li>
+      <li><b>Entrada:</b> $1.000.000. Cada entrada incluye la cena para dos personas y un (1) número para el sorteo. Se emiten 100 entradas, numeradas del 001 al 100.</li>
+      <li><b>Venta:</b> desde noviembre de 2026 hasta el 12 de diciembre de 2026, o hasta agotar los números.</li>
+      <li><b>Reserva y pago:</b> al reservar, el número queda asignado al titular. El pago se realiza por transferencia al alias vino.carro.sur, a nombre de la Federación Económica de Catamarca, y el comprobante debe enviarse dentro de las 12 horas de la reserva, desde esta página o por WhatsApp. Si en ese plazo no se recibe el comprobante, la FEC puede liberar el número. La entrada no es reembolsable.</li>
+      <li><b>Titular:</b> cada entrada queda a nombre de quien figura con nombre, DNI, celular y mail al reservar. Una misma persona puede comprar varias entradas y ser titular de todas; las demás personas que asisten son sus invitados. El número de sorteo y el premio corresponden siempre al titular, nunca al invitado.</li>
+      <li><b>Validación:</b> cada entrada tiene un código QR único que permite verificar que pertenece al listado oficial de la FEC. La entrada queda confirmada cuando la FEC verifica el pago.</li>
+      <li><b>Entrada física:</b> las entradas físicas, selladas por la Federación, se entregan en la sede de la FEC, Fray Mamerto Esquiú 861, Paseo Los Lapachos, local 11, de lunes a viernes de 8:30 a 12:30.</li>
+      <li><b>Ingreso a la gala:</b> se solicita la entrada física (talonario), que vale para las dos cenas de quien la presente, y allí se indica la mesa asignada. Si el titular no puede asistir, puede ceder su cena a la persona que elija, pero no su titularidad.</li>
+      <li><b>Premio:</b> un Toyota Yaris Cross 0 km, color negro, de Toyota del Parque. El sorteo se realiza con bolillero el día de la gala, entre los números abonados.</li>
+      <li><b>Entrega del premio:</b> el premio sale a nombre del titular de la entrada ganadora y se entrega únicamente al titular, con presentación de su DNI y de la entrada física, verificada en el sistema de la FEC. El titular gana aunque no esté presente en el sorteo; en ese caso, la entrega oficial de la documentación se coordina después entre la FEC y el ganador. El vehículo puede entregarse patentado 2026 en el momento, o patentado 2027 si el ganador prefiere esperar a enero; la elección es del ganador.</li>
+      <li><b>Etiqueta:</b> elegante de noche.</li>
+      <li><b>Datos personales:</b> los datos se usan solo para gestionar la entrada y el sorteo.</li>
+    </ol>
+  </details>
 
+  <svg class="mts" viewBox="0 0 560 60" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="mg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9A94E" stop-opacity=".55"/><stop offset=".25" stop-color="#1A1E3E"/><stop offset="1" stop-color="#05071A"/></linearGradient></defs><path d="M0 60V44l40-14 30 10 48-26 34 18 26-8 46 22 52-34 40 24 30-12 44 20 40-28 46 22 28-8 56 26V60z" fill="url(#mg)"/></svg>
+  <footer>Federación Económica de Catamarca<br>Fray Mamerto Esquiú 861 · Paseo Los Lapachos · Local 11<br>Etiqueta: elegante de noche</footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 const SB_URL='https://likeiavgirozxoyjunqw.supabase.co', SB_KEY='sb_publishable_e_f650BfP5XY7lhnnQG5FA_jeKxMuiw';
+const MAIL_URL='';           // link del script de mail de la FEC (Google Apps Script)
 const WHATSAPP='5493834984310';
 const PAGO={alias:'vino.carro.sur', titular:'Federación Económica de Catamarca'};
-const TOTAL=120;
+const TOTAL=100, PLAZO_H=12;
 const sb=supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:false}});
 const pad=n=>String(n).padStart(3,'0');
 const $=id=>document.getElementById(id);
@@ -195,39 +266,48 @@ let sel=null, taken=new Set(), mine=null, busy=false;
 (function(){const g=$('rays');let d='';for(let i=0;i<=40;i++){const a=Math.PI*i/40,c=Math.cos(a),s=Math.sin(a);
   d+=`M${(200-48*c).toFixed(1)} ${(172-48*s).toFixed(1)}L${(200-320*c).toFixed(1)} ${(172-320*s).toFixed(1)}`;}g.innerHTML=`<path d="${d}"/>`;})();
 
-async function load(){
+function store(k,v){try{v===null?localStorage.removeItem(k):localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function load_(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+
+async function loadTaken(){
   const {data,error}=await sb.rpc('numeros_ocupados');
   if(error){$('count').textContent='No pudimos cargar los números. Reintentando…';return}
   taken=new Set((data||[]).map(Number));
-  if(mine) taken.delete(mine);
-  if(sel && taken.has(sel) && sel!==mine){sel=null;toast('Ese número se acaba de vender, elegí otro');update();}
+  if(sel&&taken.has(sel)){sel=null;toast('Ese número se acaba de vender, elegí otro');update();}
   grid();
 }
 function grid(){
   const g=$('grid');g.innerHTML='';
   for(let i=1;i<=TOTAL;i++){
-    const b=document.createElement('button');
-    const isT=taken.has(i)&&i!==mine;
+    const b=document.createElement('button');const isT=taken.has(i);
     b.className='num'+(sel===i?' sel':'');b.textContent=pad(i);
     b.setAttribute('aria-label','Número '+pad(i)+(isT?' vendido':''));
-    if(isT||mine) b.disabled=isT||(mine&&i!==mine);
-    b.onclick=()=>{if(mine)return;sel=sel===i?null:i;grid();update();if(sel&&innerWidth<700)setTimeout(()=>$('s2').scrollIntoView({behavior:'smooth'}),180)};
+    b.disabled=isT;
+    b.onclick=()=>{sel=sel===i?null:i;grid();update();if(sel&&innerWidth<700)setTimeout(()=>$('s2').scrollIntoView({behavior:'smooth'}),180)};
     g.appendChild(b);
   }
-  const free=TOTAL-taken.size-(mine?1:0);
-  $('count').textContent=free+' números disponibles de '+TOTAL;
+  $('count').textContent=(TOTAL-taken.size)+' números disponibles de '+TOTAL;
 }
-function vals(){return{nom:$('nom').value.trim(),dni:$('dni').value.replace(/\D/g,''),tel:$('tel').value.trim(),ac:$('acomp').value.trim()}}
+const mailOk=m=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m);
+function vals(){return{nom:$('nom').value.trim(),dni:$('dni').value.replace(/\D/g,''),tel:$('tel').value.trim(),mail:$('mail').value.trim().toLowerCase(),ac:$('acomp').value.trim()}}
+function falta(v){
+  if(!sel) return 'Elegí un número';
+  if(v.nom.length<4) return 'Completá nombre y apellido';
+  if(v.dni.length<7||v.dni.length>9) return 'Revisá el DNI';
+  if(v.tel.replace(/\D/g,'').length<8) return 'Completá tu celular';
+  if(!mailOk(v.mail)) return 'Revisá el mail';
+  if(!$('acepto').checked) return 'Aceptá las bases y condiciones';
+  return '';
+}
 function update(){
   const v=vals();
   $('mNum').textContent=sel?pad(sel):'—';
   const p=$('sumTxt');p.textContent='';
   if(!sel){p.textContent='Elegí un número y completá tus datos.';}
   else{const st=document.createElement('strong');st.textContent=v.nom||'—';p.append(st,document.createElement('br'),'DNI '+(v.dni||'—'));
-    if(v.tel){p.append(document.createElement('br'),'Cel. '+v.tel)} if(v.ac){p.append(document.createElement('br'),'Acompañante: '+v.ac)}}
-  const ok=sel&&v.nom.length>3&&v.dni.length>=7&&v.dni.length<=9&&v.tel.replace(/\D/g,'').length>=8&&!mine;
-  const r=$('reserve');r.setAttribute('aria-disabled',ok&&!busy?'false':'true');
-  if(!mine) r.textContent=sel?'Reservar el Nº '+pad(sel):'Reservar';
+    if(v.tel)p.append(document.createElement('br'),'Cel. '+v.tel); if(v.mail)p.append(document.createElement('br'),v.mail); if(v.ac)p.append(document.createElement('br'),'Invitados: '+v.ac)}
+  $('reserve').setAttribute('aria-disabled',!falta(v)&&!busy?'false':'true');
+  $('reserve').textContent=sel?'Reservar el Nº '+pad(sel):'Reservar';
 }
 function payBox(){
   const p=$('pay');
@@ -237,29 +317,81 @@ function payBox(){
   p.querySelector('.copy').onclick=e=>{const v=e.target.dataset.v;navigator.clipboard?.writeText(v).then(()=>toast('Alias copiado')).catch(()=>toast(v))};
 }
 async function reserve(){
-  if($('reserve').getAttribute('aria-disabled')==='true'){
-    const v=vals();toast(!sel?'Elegí un número':v.nom.length<4?'Completá nombre y apellido':v.dni.length<7?'Revisá el DNI':'Completá tu celular');return}
-  busy=true;update();$('reserve').textContent='Reservando…';
-  const v=vals();
-  const {data,error}=await sb.rpc('reservar',{p_numero:sel,p_nombre:v.nom,p_dni:v.dni,p_telefono:v.tel,p_acompanante:v.ac});
+  const v=vals(), f=falta(v);
+  if(f){toast(f);return}
+  if(busy)return; busy=true;update();$('reserve').textContent='Reservando…';
+  const {data,error}=await sb.rpc('reservar2',{p_numero:sel,p_nombre:v.nom,p_dni:v.dni,p_telefono:v.tel,p_email:v.mail,p_acompanante:v.ac});
   busy=false;
-  if(error){toast('No se pudo reservar, probá de nuevo');update();return}
-  if(data==='ocupado'){toast('Uy, ese número se acaba de vender. Elegí otro');sel=null;await load();update();$('s1').scrollIntoView({behavior:'smooth'});return}
-  if(data==='limite_dni'){toast('Este DNI ya tiene 3 números reservados');update();return}
-  if(data!=='ok'){toast('Revisá tus datos');update();return}
-  mine=sel;
-  ['nom','dni','tel','acomp'].forEach(id=>$(id).disabled=true);
-  const r=$('reserve');r.textContent='Nº '+pad(mine)+' reservado a tu nombre ✓';r.setAttribute('aria-disabled','true');r.style.opacity='1';
-  $('resNote').textContent='Ahora hacé la transferencia y mandanos el comprobante para confirmar tu entrada.';
-  const msg=`Hola! Reservé el número *${pad(mine)}* para *La Noche del Millón*.\n\nNombre: ${v.nom}\nDNI: ${v.dni}\nCelular: ${v.tel}`+(v.ac?`\nAcompañante: ${v.ac}`:'')+`\n\nAdjunto el comprobante de pago de $1.000.000.`;
-  $('send').href='https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(msg);
-  $('after').hidden=false;grid();
-  setTimeout(()=>$('s4').scrollIntoView({behavior:'smooth'}),200);
+  if(error){toast('No se pudo reservar. Revisá tu conexión y probá de nuevo');update();return}
+  const e=data&&data.estado;
+  if(e==='ocupado'){toast('Ese número se acaba de vender. Elegí otro');sel=null;await loadTaken();update();$('s1').scrollIntoView({behavior:'smooth'});return}
+    if(e==='cerrada'){toast('La venta de entradas ya cerró');update();return}
+  if(e!=='ok'){toast('Revisá tus datos');update();return}
+  const t={n:sel,c:data.codigo,nom:v.nom,dni:v.dni,creado:new Date().toISOString()};
+  store('ndm_titular',{nom:v.nom,dni:v.dni,tel:v.tel,mail:v.mail});
+  store('ndm_entrada',t);
+  if(MAIL_URL){try{fetch(MAIL_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({n:t.n,c:t.c,base:baseUrl()})})}catch(_){}}
+  history.replaceState(null,'','?n='+t.n+'&c='+t.c);
+  showTicket(t,{estado:'pendiente',comprobante:false,creado:t.creado});
 }
-function toast(t){const el=$('toast');el.textContent=t;el.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('on'),2400)}
-['nom','dni','tel','acomp'].forEach(id=>$(id).addEventListener('input',update));
+function baseUrl(){return new URL('.',location.href).href}
+function showTicket(t,info){
+  mine=t;
+  $('buy').hidden=true;$('after').hidden=false;
+  $('tNum').textContent=pad(t.n);$('tName').textContent=info.nombre||t.nom||'';
+  const q=$('qr');q.innerHTML='';
+  new QRCode(q,{text:baseUrl()+'v.html?n='+t.n+'&c='+t.c,width:336,height:336,correctLevel:QRCode.CorrectLevel.M});
+  const st=$('tState');
+  if(info.estado==='pagado'){st.className='pill paid';st.textContent='Pagada ✓';$('payBlock').hidden=true;
+    $('tDeadline').textContent='Retirá tu entrada física sellada en la FEC: Fray Mamerto Esquiú 861, Paseo Los Lapachos, local 11, de lunes a viernes de 8:30 a 12:30.';$('tDeadline').style.color='#8FE0B4';}
+  else if(info.comprobante){st.className='pill recv';st.textContent='Comprobante recibido';$('upBox').hidden=true;$('upOk').hidden=false;$('tDeadline').textContent='';}
+  else{st.className='pill pend';st.textContent='Pendiente de pago';
+    const lim=new Date(new Date(info.creado||t.creado).getTime()+PLAZO_H*3600e3);
+    const dd=lim.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'numeric'}).replace('-','/'), hh=lim.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit',hour12:false});
+    $('tDeadline').textContent='Enviá el comprobante antes del '+dd+' a las '+hh+' h. Si no, el número puede liberarse.';}
+  const msg=`Hola, acabo de comprar mi entrada a la Cena del Millón, aquí envío el pago.\n\nNúmero: ${pad(t.n)}\nTitular: ${info.nombre||t.nom}`+(t.dni?`\nDNI: ${t.dni}`:'')+`\nCódigo: ${t.c}`;
+  $('wa').href='https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(msg);
+  setTimeout(()=>$('s4').scrollIntoView({behavior:'smooth'}),150);
+}
+async function upload(){
+  const f=$('file').files[0];
+  if(!f){toast('Elegí el archivo del comprobante');return}
+  if(f.size>8*1024*1024){toast('El archivo pesa más de 8 MB');return}
+  if(busy)return;busy=true;$('upBtn').textContent='Enviando…';$('upBtn').setAttribute('aria-disabled','true');
+  const ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,5)||'jpg';
+  const path=`${mine.n}/${mine.c}/${Date.now()}.${ext}`;
+  const up=await sb.storage.from('comprobantes').upload(path,f,{contentType:f.type||'application/octet-stream',upsert:false});
+  if(up.error){busy=false;$('upBtn').textContent='Enviar comprobante';$('upBtn').setAttribute('aria-disabled','false');toast('No se pudo subir. Probá de nuevo o envialo por WhatsApp');return}
+  const {data}=await sb.rpc('registrar_comprobante',{p_numero:mine.n,p_codigo:mine.c,p_ruta:path});
+  busy=false;
+  if(data!=='ok'){toast('No se pudo registrar. Envialo por WhatsApp');$('upBtn').textContent='Enviar comprobante';return}
+  $('upBox').hidden=true;$('upOk').hidden=false;$('tState').className='pill recv';$('tState').textContent='Comprobante recibido';$('tDeadline').textContent='';
+  toast('Comprobante enviado ✓');
+}
+function toast(t){const el=$('toast');el.textContent=t;el.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('on'),2600)}
+
+['nom','dni','tel','mail','acomp'].forEach(id=>$(id).addEventListener('input',update));
+$('acepto').addEventListener('change',update);
+$('verBases').addEventListener('click',e=>{e.preventDefault();$('bases').open=true;$('bases').scrollIntoView({behavior:'smooth'})});
 $('reserve').addEventListener('click',reserve);
-payBox();grid();update();load();setInterval(()=>{if(!document.hidden)load()},20000);
+$('file').addEventListener('change',()=>{const f=$('file').files[0];$('fileTxt').textContent=f?f.name:'Tocá para elegir la foto o el PDF del comprobante';$('fileLbl').classList.toggle('has',!!f);$('upBtn').setAttribute('aria-disabled',f?'false':'true')});
+$('upBtn').addEventListener('click',upload);
+payBox();
+$('otra').addEventListener('click',e=>{e.preventDefault();store('ndm_entrada',null);location.href=location.pathname+'?otra=1'});
+
+(async function init(){
+  const u=new URLSearchParams(location.search);
+  let t=null;
+  if(u.get('n')&&u.get('c')) t={n:+u.get('n'),c:u.get('c').toUpperCase()};
+  else { const s=load_('ndm_entrada'); if(s&&s.n&&s.c) t=s; }
+  if(t){
+    const {data}=await sb.rpc('mi_entrada',{p_numero:t.n,p_codigo:t.c});
+    if(data){ showTicket({...t,nom:data.nombre},data); return; }
+    store('ndm_entrada',null); history.replaceState(null,'',location.pathname);
+  }
+  const ti=load_('ndm_titular');if(ti&&u.get('otra')){$('nom').value=ti.nom||'';$('dni').value=ti.dni||'';$('tel').value=ti.tel||'';$('mail').value=ti.mail||'';}
+  grid();update();loadTaken();setInterval(()=>{if(!document.hidden&&!mine)loadTaken()},20000);
+})();
 </script>
 </body>
 </html>

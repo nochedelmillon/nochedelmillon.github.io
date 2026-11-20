@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Verificar entrada · Noche del Millón</title>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500&family=Cinzel:wght@500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05071A;--ink:#EFE7D2;--muted:#9E978A;--gold:#C9A94E;--ok:#5FC48C;--warn:#E0A84A;--bad:#E07A7A;
+  --foil:linear-gradient(100deg,#8C6B22 0%,#E8CF86 30%,#B48C35 52%,#F4E3A8 68%,#A07D2E 100%)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#05071A}}
+:root[data-theme="dark"]{--bg:#05071A}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'Montserrat',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px}
+.card{width:100%;max-width:420px;text-align:center;border:1px solid rgba(201,169,78,.6);padding:34px 22px}
+.k{font-family:'Cinzel',serif;letter-spacing:.3em;font-size:12px;color:var(--gold)}
+.n{font-family:'Bodoni Moda',serif;font-size:72px;line-height:1;margin:10px 0;background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent}
+.st{font-size:22px;font-weight:600;margin:12px 0 6px}
+.who{font-size:16px;color:var(--ink);margin-top:10px;line-height:1.6}
+.m{font-size:13px;color:var(--muted);margin-top:16px;line-height:1.6}
+.ic{width:74px;height:74px;border-radius:50%;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:700}
+</style>
+</head>
+<body>
+<div class="card" id="c"><div class="k">La noche del Millón</div><p class="m">Verificando entrada…</p></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+const sb=supabase.createClient('https://likeiavgirozxoyjunqw.supabase.co','sb_publishable_e_f650BfP5XY7lhnnQG5FA_jeKxMuiw',{auth:{persistSession:false}});
+const u=new URLSearchParams(location.search), n=+u.get('n'), c=(u.get('c')||'').toUpperCase();
+const pad=x=>String(x).padStart(3,'0');
+function show(color,icon,title,html){
+  const el=document.getElementById('c');el.style.borderColor=color;
+  el.innerHTML=`<div class="k">La noche del Millón · Verificación</div><div class="n">${n?pad(n):'—'}</div><div class="ic" style="background:${color}22;color:${color};border:2px solid ${color}">${icon}</div><div class="st" style="color:${color}">${title}</div>${html}`;
+}
+(async()=>{
+  if(!n||!c){show('var(--bad)','✕','Código inválido','<p class="m">Este QR no corresponde a una entrada de la FEC.</p>');return}
+  const {data,error}=await sb.rpc('verificar',{p_numero:n,p_codigo:c});
+  if(error){show('var(--warn)','!','Sin conexión','<p class="m">No se pudo verificar. Revisá la conexión y volvé a escanear.</p>');return}
+  if(!data||!data.valida){show('var(--bad)','✕','Entrada no válida','<p class="m">Este número y código no figuran en el listado oficial de la FEC.</p>');return}
+  const who=`<div class="who">${data.titular.replace(/[<>&]/g,'')}<br>DNI ${data.dni}</div>`;
+  if(data.estado==='pagado') show('var(--ok)','✓','Entrada válida · Pagada',who+'<p class="m">Figura en el listado oficial de la Federación Económica de Catamarca.</p>');
+  else show('var(--warn)','!','Reservada · Pago pendiente',who+'<p class="m">La entrada existe pero el pago todavía no fue confirmado por la FEC.</p>');
+})();
+</script>
+</body>
+</html>

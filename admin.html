@@ -31,6 +31,13 @@ h1{margin:0;font-family:'Bodoni Moda',serif;font-weight:500;font-size:28px}
 .n{appearance:none;border:1px solid transparent;background:var(--free);color:#8A90B5;font-family:'Bodoni Moda',serif;font-size:15px;aspect-ratio:1;border-radius:8px;cursor:pointer;padding:0;position:relative}
 .n.pend{background:rgba(224,168,74,.18);border-color:var(--pend);color:#F5D9A6}
 .n.paid{background:rgba(95,196,140,.18);border-color:var(--paid);color:#BFF0D3}
+.n.recv{background:rgba(120,150,255,.2);border-color:#8FA4FF;color:#D5DDFF}
+.n.venc{background:rgba(227,122,122,.18);border-color:#E37A7A;color:#F6C4C4}
+.tag.recv{background:rgba(120,150,255,.2);color:#A9B8FF}.tag.venc{background:rgba(227,122,122,.18);color:#F09A9A}
+.qrbox{display:flex;gap:14px;align-items:center;margin:12px 0;padding:12px;border:1px solid var(--line)}
+.qrbox .q{background:#fff;padding:6px;line-height:0;flex:none}.qrbox .q img,.qrbox .q canvas{width:96px!important;height:96px!important}
+.qrbox small{color:var(--muted);font-size:12px;line-height:1.5;word-break:break-all}
+.lnk{appearance:none;background:none;border:1px solid var(--line);color:var(--gold);font:inherit;font-size:13px;padding:10px 12px;border-radius:4px;cursor:pointer;width:100%;margin:4px 0 10px}
 .n:hover{outline:1px solid var(--gold)}
 h2{font-family:'Cinzel',serif;font-weight:500;font-size:14px;letter-spacing:.2em;margin:30px 0 12px;color:var(--gold)}
 .tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
@@ -40,6 +47,14 @@ input:focus,select:focus,textarea:focus{border-color:var(--gold)}
 .chip{appearance:none;border:1px solid var(--line);background:none;color:var(--muted);font:inherit;font-size:12px;padding:8px 12px;border-radius:20px;cursor:pointer}
 .chip.on{background:var(--gold);color:#0A0D26;border-color:var(--gold)}
 .list{display:flex;flex-direction:column;gap:6px}
+.grp{border:1px solid var(--line);margin-bottom:10px;background:rgba(12,16,48,.5)}
+.gh{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px;border-bottom:1px solid var(--line);background:rgba(201,169,78,.07)}
+.gh .lbl{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.gh b{display:block;font-size:15px;font-weight:600}.gh small{color:var(--muted);font-size:12px}
+.gh .cnt{font-size:12px;color:var(--ink);white-space:nowrap}
+.grp .row{border:0;border-top:1px solid rgba(201,169,78,.12);background:none}
+.row .who b{font-weight:400;font-size:13px}
+.upl{display:flex;gap:8px;margin:0 0 10px}.upl label{flex:1;border:1px dashed var(--line);padding:10px;font-size:13px;color:var(--muted);cursor:pointer;text-align:center;border-radius:4px}.upl input{display:none}
 .row{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);padding:10px 12px;cursor:pointer}
 .row .num{font-family:'Bodoni Moda',serif;font-size:20px}
 .row .who{min-width:0}.row .who b{display:block;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -86,18 +101,18 @@ input:focus,select:focus,textarea:focus{border-color:var(--gold)}
   <div class="stats">
     <div class="st"><span>Pagadas</span><b id="sPaid" style="color:var(--paid)">0</b></div>
     <div class="st"><span>Pendientes</span><b id="sPend" style="color:var(--pend)">0</b></div>
-    <div class="st"><span>Libres</span><b id="sFree">120</b></div>
+    <div class="st"><span>Libres</span><b id="sFree">100</b></div>
     <div class="st"><span>Cobrado</span><b id="sMoney" class="foil">$0</b></div>
   </div>
   <div class="bar"><i id="bPaid" style="background:var(--paid)"></i><i id="bPend" style="background:var(--pend)"></i></div>
 
-  <div class="legend"><span><i style="background:var(--free)"></i>Libre</span><span><i style="background:var(--pend)"></i>Pendiente de pago</span><span><i style="background:var(--paid)"></i>Pagado</span><span>· Tocá un número para cargar o editar</span></div>
+  <div class="legend"><span><i style="background:var(--free)"></i>Libre</span><span><i style="background:var(--pend)"></i>Reservado, sin comprobante</span><span><i style="background:#8FA4FF"></i>Comprobante recibido: revisar</span><span><i style="background:#E37A7A"></i>Más de 12 h sin comprobante</span><span><i style="background:var(--paid)"></i>Pagado</span><span>· Tocá un número para cargar o editar</span></div>
   <div class="grid" id="grid"></div>
 
-  <h2>Compradores</h2>
+  <h2>Titulares y entradas</h2>
   <div class="tools">
     <input id="q" placeholder="Buscar nombre, DNI o número">
-    <button class="chip on" data-f="all">Todos</button><button class="chip" data-f="pend">Pendientes</button><button class="chip" data-f="paid">Pagados</button>
+    <button class="chip on" data-f="all">Todos</button><button class="chip" data-f="recv">A revisar</button><button class="chip" data-f="venc">Vencidas</button><button class="chip" data-f="pend">Pendientes</button><button class="chip" data-f="paid">Pagados</button><button class="chip" id="csv">Descargar planilla</button>
   </div>
   <div class="list" id="list"></div>
 </div>
@@ -106,12 +121,14 @@ input:focus,select:focus,textarea:focus{border-color:var(--gold)}
   <div class="panel" role="dialog" aria-modal="true" aria-labelledby="pTitle">
     <div class="ph"><div class="medal foil" id="pNum">001</div><div><div class="kick">Número de sorteo</div><div id="pTitle" style="font-size:16px;font-weight:500">Nueva venta</div></div></div>
     <div id="dupe"></div>
-    <div class="f"><label>Nombre y apellido</label><input id="fNom"></div>
+    <div class="f"><label>Titular (nombre y apellido)</label><input id="fNom"></div>
     <div class="two">
       <div class="f"><label>DNI</label><input id="fDni" inputmode="numeric"></div>
       <div class="f"><label>Teléfono</label><input id="fTel" inputmode="tel"></div>
     </div>
-    <div class="f"><label>Acompañante</label><input id="fAc"></div>
+    <div class="f"><label>Mail</label><input id="fMail" type="email" inputmode="email"></div>
+    <div class="f"><label>Invitados</label><input id="fAc" placeholder="Nombre y apellido de los invitados"></div>
+    <div id="extra"></div>
     <label style="font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)">Estado</label>
     <div class="seg"><button class="pend" data-e="pend">Pendiente</button><button class="paid" data-e="paid">Pagado</button></div>
     <div class="two">
@@ -129,20 +146,25 @@ input:focus,select:focus,textarea:focus{border-color:var(--gold)}
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 const sb=supabase.createClient('https://likeiavgirozxoyjunqw.supabase.co','sb_publishable_e_f650BfP5XY7lhnnQG5FA_jeKxMuiw');
-const TOTAL=120, PRICE=1000000;
+const TOTAL=100, PRICE=1000000;
 const pad=n=>String(n).padStart(3,'0');
 const $=id=>document.getElementById(id);
 let data={}, filt='all', cur=null, est='pend', confirmFree=false;
 const toEst=e=>e==='pagado'?'paid':'pend', fromEst=e=>e==='paid'?'pagado':'pendiente';
+const PLAZO=12*3600e3;
+function vis(r){ if(r.estado==='pagado')return 'paid'; if(r.comprobante)return 'recv'; if(Date.now()-new Date(r.creado).getTime()>PLAZO)return 'venc'; return 'pend'; }
+const LBL={paid:'Pagado',recv:'A revisar',venc:'Vencida',pend:'Pendiente'};
+const SITE=new URL('.',location.href).href;
 
 function render(){
   const g=$('grid'); g.innerHTML=''; let paid=0,pend=0;
   for(let i=1;i<=TOTAL;i++){
     const k=pad(i), r=data[i];
     const b=document.createElement('button');
-    b.className='n'+(r?' '+toEst(r.estado):''); b.textContent=k; b.title=r?r.nombre:'Libre';
+    b.className='n'+(r?' '+vis(r):''); b.textContent=k; b.title=r?r.nombre:'Libre';
     b.onclick=()=>open(i); g.appendChild(b);
     if(r){r.estado==='pagado'?paid++:pend++;}
   }
@@ -150,29 +172,57 @@ function render(){
   $('sMoney').textContent='$'+(paid*PRICE).toLocaleString('es-AR');
   $('bPaid').style.width=(paid/TOTAL*100)+'%';$('bPend').style.width=(pend/TOTAL*100)+'%';
   const q=$('q').value.trim().toLowerCase();
-  const rows=Object.values(data).filter(r=>(filt==='all'||toEst(r.estado)===filt)&&(!q||pad(r.numero).includes(q)||(r.nombre||'').toLowerCase().includes(q)||(r.dni||'').includes(q))).sort((a,b)=>a.numero-b.numero);
+  const rows=Object.values(data).filter(r=>(filt==='all'||vis(r)===filt)&&(!q||pad(r.numero).includes(q)||(r.nombre||'').toLowerCase().includes(q)||(r.dni||'').includes(q)||(r.email||'').includes(q)||(r.acompanante||'').toLowerCase().includes(q))).sort((a,b)=>a.numero-b.numero);
   const L=$('list'); L.innerHTML='';
   if(!rows.length){L.innerHTML='<div class="empty">Sin ventas todavía</div>';return}
-  rows.forEach(r=>{
-    const d=document.createElement('div');d.className='row';const e=toEst(r.estado);
-    d.innerHTML=`<span class="num foil"></span><div class="who"><b></b><small></small></div><span class="tag ${e}">${e==='paid'?'Pagado':'Pendiente'}</span>`;
-    d.querySelector('.num').textContent=pad(r.numero);
-    d.querySelector('b').textContent=r.nombre||'—';
-    d.querySelector('small').textContent=['DNI '+(r.dni||'—'),r.telefono,r.confirmo?'confirmó '+r.confirmo:'',r.origen==='web'?'web':''].filter(Boolean).join(' · ');
-    d.onclick=()=>open(r.numero);L.appendChild(d);
+  const groups={};
+  rows.forEach(r=>{const k=r.dni||('n'+r.numero);(groups[k]=groups[k]||[]).push(r)});
+  Object.values(groups).sort((a,b)=>a[0].numero-b[0].numero).forEach(g=>{
+    const t=g[0], box=document.createElement('div');box.className='grp';
+    const pagas=g.filter(r=>r.estado==='pagado').length;
+    const h=document.createElement('div');h.className='gh';
+    h.innerHTML='<div><span class="lbl">Titular</span><b></b><small></small></div><span class="cnt"></span>';
+    h.querySelector('b').textContent=t.nombre||'—';
+    h.querySelector('small').textContent=['DNI '+(t.dni||'—'),t.telefono,t.email].filter(Boolean).join(' · ');
+    h.querySelector('.cnt').textContent=g.length+(g.length>1?' entradas':' entrada')+' · '+pagas+' pagada'+(pagas===1?'':'s');
+    box.appendChild(h);
+    g.forEach(r=>{
+      const d=document.createElement('div');d.className='row';const e=vis(r);
+      d.innerHTML=`<span class="num foil"></span><div class="who"><b></b><small></small></div><span class="tag ${e==='recv'||e==='venc'?e:toEst(r.estado)}">${LBL[e]}</span>`;
+      d.querySelector('.num').textContent=pad(r.numero);
+      d.querySelector('b').textContent=r.acompanante?'Invitados: '+r.acompanante:'Sin invitados cargados';
+      d.querySelector('small').textContent=[r.comprobante?'📎 comprobante':'Sin comprobante',r.confirmo?'confirmó '+r.confirmo:''].filter(Boolean).join(' · ');
+      d.onclick=()=>open(r.numero);box.appendChild(d);
+    });
+    L.appendChild(box);
   });
 }
 function setEst(e){est=e;document.querySelectorAll('.seg button').forEach(b=>b.classList.toggle('on',b.dataset.e===e))}
 function open(n){
   cur=n;const r=data[n]||{};
   $('pNum').textContent=pad(n);$('pTitle').textContent=r.nombre||'Nueva venta';
-  $('fNom').value=r.nombre||'';$('fDni').value=r.dni||'';$('fTel').value=r.telefono||'';$('fAc').value=r.acompanante||'';
+  $('fNom').value=r.nombre||'';$('fDni').value=r.dni||'';$('fTel').value=r.telefono||'';$('fAc').value=r.acompanante||'';$('fMail').value=r.email||'';
   $('fPor').value=r.confirmo||'';$('fMed').value=r.medio||'Transferencia';$('fNota').value=r.nota||'';
   setEst(r.estado?toEst(r.estado):'pend');
   $('bFree').style.display=data[n]?'':'none';confirmFree=false;$('bFree').textContent='Liberar';
   const m=$('pMeta');m.textContent='';
   if(r.creado) m.append((r.origen==='web'?'Reservó desde la web el ':'Cargado el ')+new Date(r.creado).toLocaleString('es-AR',{dateStyle:'short',timeStyle:'short'}));
   if(r.telefono){const a=document.createElement('a');a.className='wa';a.target='_blank';a.rel='noopener';let t=r.telefono.replace(/\D/g,'');if(!t.startsWith('54'))t='549'+t;a.href='https://wa.me/'+t;a.textContent=' · Abrir WhatsApp';m.appendChild(a);}
+  const x=$('extra');x.innerHTML='';
+  if(r.comprobante){const b=document.createElement('button');b.className='lnk';b.textContent='📎 Ver comprobante'+(r.comprobante_at?' ('+new Date(r.comprobante_at).toLocaleString('es-AR',{dateStyle:'short',timeStyle:'short'})+')':'');
+    b.onclick=async()=>{const w=window.open('','_blank');const {data,error}=await sb.storage.from('comprobantes').createSignedUrl(r.comprobante,300);if(error||!data){w&&w.close();alert('No se pudo abrir el comprobante');return}if(w)w.location=data.signedUrl;else location.href=data.signedUrl};x.appendChild(b);}
+  if(data[n]){const w=document.createElement('div');w.className='upl';w.innerHTML='<label><input type="file" accept="image/*,application/pdf"><span>'+(r.comprobante?'Reemplazar comprobante':'＋ Cargar comprobante (foto o PDF)')+'</span></label>';
+    const inp=w.querySelector('input');inp.onchange=async()=>{const f=inp.files[0];if(!f)return;w.querySelector('span').textContent='Subiendo…';
+      const ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,5)||'jpg';
+      const path=n+'/'+(r.codigo||'MANUAL')+'/'+Date.now()+'.'+ext;
+      const up=await sb.storage.from('comprobantes').upload(path,f,{contentType:f.type||'application/octet-stream',upsert:false});
+      if(up.error){alert('No se pudo subir: '+up.error.message);w.querySelector('span').textContent='＋ Cargar comprobante (foto o PDF)';return}
+      const {error}=await sb.from('entradas').update({comprobante:path,comprobante_at:new Date().toISOString()}).eq('numero',n);
+      if(error){alert('No se pudo guardar: '+error.message);return}
+      await refresh();open(n);};
+    x.appendChild(w);}
+  if(r.codigo){const u=SITE+'v.html?n='+r.numero+'&c='+r.codigo;const box=document.createElement('div');box.className='qrbox';box.innerHTML='<div class="q"></div><small></small>';
+    box.querySelector('small').textContent='Código '+r.codigo+' · QR de verificación'+(r.mail_enviado?' · mail enviado':'');x.appendChild(box);new QRCode(box.querySelector('.q'),{text:u,width:192,height:192});}
   checkDupe();$('sheet').classList.add('on');
 }
 function checkDupe(){
@@ -182,12 +232,14 @@ function checkDupe(){
 }
 function close(){$('sheet').classList.remove('on');cur=null}
 async function save(){
-  const rec={numero:cur,nombre:$('fNom').value.trim(),dni:$('fDni').value.replace(/\D/g,''),telefono:$('fTel').value.trim(),acompanante:$('fAc').value.trim(),
+  const rec={numero:cur,nombre:$('fNom').value.trim(),dni:$('fDni').value.replace(/\D/g,''),telefono:$('fTel').value.trim(),email:$('fMail').value.trim().toLowerCase()||null,acompanante:$('fAc').value.trim(),
     estado:fromEst(est),confirmo:$('fPor').value||null,medio:$('fMed').value,nota:$('fNota').value.trim(),actualizado:new Date().toISOString()};
   if(!rec.nombre){$('fNom').focus();return}
   if(!rec.dni){$('fDni').focus();return}
-  if(!data[cur]) rec.origen='manual';
-  const {error}=await sb.from('entradas').upsert(rec);
+  let error;
+  if(!data[cur]){ rec.origen='manual'; ({error}=await sb.from('entradas').insert(rec));
+    if(error&&error.code==='23505'){alert('Ese número se acaba de reservar desde la web. Revisalo antes de cargarlo.');close();refresh();return} }
+  else { ({error}=await sb.from('entradas').update(rec).eq('numero',cur)); }
   if(error){alert('No se pudo guardar: '+error.message);return}
   close();refresh();
 }
@@ -204,11 +256,18 @@ async function refresh(){
   $('sync').textContent='● Actualizado '+new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});$('sync').style.color='var(--paid)';
 }
 document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>setEst(b.dataset.e));
-document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{filt=c.dataset.f;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===c));render()});
+document.querySelectorAll('.chip[data-f]').forEach(c=>c.onclick=()=>{filt=c.dataset.f;document.querySelectorAll('.chip[data-f]').forEach(x=>x.classList.toggle('on',x===c));render()});
 $('q').oninput=render;$('fDni').oninput=checkDupe;
 $('bClose').onclick=close;$('bSave').onclick=save;$('bFree').onclick=free;
 $('sheet').onclick=e=>{if(e.target.id==='sheet')close()};
 document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+$('csv').onclick=e=>{e.stopPropagation();
+  const HEAD={numero:'Número',nombre:'Titular',dni:'DNI',telefono:'Celular',email:'Mail',acompanante:'Invitados',estado:'Estado',comprobante:'Comprobante',confirmo:'Confirmó',medio:'Medio',nota:'Nota',codigo:'Código',creado:'Reservó'};
+  const cols=['numero','nombre','dni','telefono','email','acompanante','estado','comprobante','confirmo','medio','nota','codigo','creado'];
+  const esc=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+  const rows=Object.values(data).sort((a,b)=>a.numero-b.numero).map(r=>cols.map(c=>c==='comprobante'?(r.comprobante?'sí':'no'):r[c]).map(esc).join(';'));
+  const blob=new Blob(['\ufeff'+cols.map(c=>HEAD[c]).join(';')+'\n'+rows.join('\n')],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='entradas-noche-del-millon-'+new Date().toISOString().slice(0,10)+'.csv';a.click();};
 $('out').onclick=async()=>{await sb.auth.signOut();location.reload()};
 $('lgBtn').onclick=async()=>{
   const email=$('lgMail').value.trim(); if(!email.includes('@')){$('lgMail').focus();return}
