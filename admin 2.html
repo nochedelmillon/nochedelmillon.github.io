@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Registro · Noche del Millón</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500&family=Cinzel:wght@500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05071A;--card:#0C1030;--line:rgba(201,169,78,.3);--gold:#C9A94E;--ink:#EFE7D2;--muted:#9E978A;
+  --pend:#E0A84A;--paid:#5FC48C;--free:#1A1F45;
+  --foil:linear-gradient(100deg,#8C6B22 0%,#E8CF86 30%,#B48C35 52%,#F4E3A8 68%,#A07D2E 100%)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#05071A}}
+:root[data-theme="dark"]{--bg:#05071A}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'Montserrat',sans-serif;font-size:14px}
+.wrap{max-width:980px;margin:0 auto;padding:18px 16px 60px}
+h1{margin:0;font-family:'Bodoni Moda',serif;font-weight:500;font-size:28px}
+.foil{background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.kick{font-family:'Cinzel',serif;letter-spacing:.3em;font-size:11px;color:var(--gold)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:18px 0}
+.st{background:var(--card);border:1px solid var(--line);padding:12px}
+.st span{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.st b{display:block;font-family:'Bodoni Moda',serif;font-weight:500;font-size:26px;margin-top:4px}
+.bar{height:6px;background:var(--free);border-radius:3px;overflow:hidden;display:flex;margin-bottom:18px}
+.bar i{display:block;height:100%}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--muted);margin-bottom:10px;flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:6px}.legend i{width:11px;height:11px;border-radius:50%}
+.grid{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px}
+.n{appearance:none;border:1px solid transparent;background:var(--free);color:#8A90B5;font-family:'Bodoni Moda',serif;font-size:15px;aspect-ratio:1;border-radius:8px;cursor:pointer;padding:0;position:relative}
+.n.pend{background:rgba(224,168,74,.18);border-color:var(--pend);color:#F5D9A6}
+.n.paid{background:rgba(95,196,140,.18);border-color:var(--paid);color:#BFF0D3}
+.n.recv{background:rgba(120,150,255,.2);border-color:#8FA4FF;color:#D5DDFF}
+.n.venc{background:rgba(227,122,122,.18);border-color:#E37A7A;color:#F6C4C4}
+.tag.recv{background:rgba(120,150,255,.2);color:#A9B8FF}.tag.venc{background:rgba(227,122,122,.18);color:#F09A9A}
+.qrbox{display:flex;gap:14px;align-items:center;margin:12px 0;padding:12px;border:1px solid var(--line)}
+.qrbox .q{background:#fff;padding:6px;line-height:0;flex:none}.qrbox .q img,.qrbox .q canvas{width:96px!important;height:96px!important}
+.qrbox small{color:var(--muted);font-size:12px;line-height:1.5;word-break:break-all}
+.lnk{appearance:none;background:none;border:1px solid var(--line);color:var(--gold);font:inherit;font-size:13px;padding:10px 12px;border-radius:4px;cursor:pointer;width:100%;margin:4px 0 10px}
+.n:hover{outline:1px solid var(--gold)}
+h2{font-family:'Cinzel',serif;font-weight:500;font-size:14px;letter-spacing:.2em;margin:30px 0 12px;color:var(--gold)}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tools input{flex:1;min-width:160px}
+input,select,textarea{background:#0A0D26;border:1px solid var(--line);color:var(--ink);font:inherit;font-size:16px;padding:10px 12px;border-radius:4px;outline:none;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+.chip{appearance:none;border:1px solid var(--line);background:none;color:var(--muted);font:inherit;font-size:12px;padding:8px 12px;border-radius:20px;cursor:pointer}
+.chip.on{background:var(--gold);color:#0A0D26;border-color:var(--gold)}
+.list{display:flex;flex-direction:column;gap:6px}
+.grp{border:1px solid var(--line);margin-bottom:10px;background:rgba(12,16,48,.5)}
+.gh{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px;border-bottom:1px solid var(--line);background:rgba(201,169,78,.07)}
+.gh .lbl{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.gh b{display:block;font-size:15px;font-weight:600}.gh small{color:var(--muted);font-size:12px}
+.gh .cnt{font-size:12px;color:var(--ink);white-space:nowrap}
+.grp .row{border:0;border-top:1px solid rgba(201,169,78,.12);background:none}
+.row .who b{font-weight:400;font-size:13px}
+.upl{display:flex;gap:8px;margin:0 0 10px}.upl label{flex:1;border:1px dashed var(--line);padding:10px;font-size:13px;color:var(--muted);cursor:pointer;text-align:center;border-radius:4px}.upl input{display:none}
+.row{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);padding:10px 12px;cursor:pointer}
+.row .num{font-family:'Bodoni Moda',serif;font-size:20px}
+.row .who{min-width:0}.row .who b{display:block;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .who small{color:var(--muted);font-size:12px}
+.tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:5px 9px;border-radius:12px;font-weight:600}
+.tag.pend{background:rgba(224,168,74,.18);color:var(--pend)}.tag.paid{background:rgba(95,196,140,.18);color:var(--paid)}
+.empty{color:var(--muted);padding:20px;text-align:center;border:1px dashed var(--line)}
+.sheet{position:fixed;inset:0;background:rgba(2,3,12,.7);display:none;align-items:flex-end;justify-content:center;z-index:10}
+.sheet.on{display:flex}
+.panel{background:#0B0F2E;border:1px solid var(--line);width:100%;max-width:520px;max-height:92vh;overflow:auto;padding:20px 18px 22px;border-radius:14px 14px 0 0}
+@media(min-width:700px){.sheet{align-items:center}.panel{border-radius:10px}}
+.ph{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.medal{width:60px;height:60px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Bodoni Moda',serif;font-size:22px;flex:none}
+.f{margin-bottom:10px}.f label{display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0 12px}
+.seg button{appearance:none;border:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-weight:600;padding:12px;border-radius:6px;cursor:pointer}
+.seg button.on.pend{background:var(--pend);color:#1A1203;border-color:var(--pend)}
+.seg button.on.paid{background:var(--paid);color:#04170C;border-color:var(--paid)}
+.acts{display:flex;gap:8px;margin-top:14px}
+.btn{appearance:none;border:0;background:var(--foil);color:#0A0D26;font-family:'Cinzel',serif;font-weight:600;letter-spacing:.14em;padding:13px 16px;cursor:pointer;border-radius:4px;flex:1}
+.ghost{appearance:none;background:none;border:1px solid var(--line);color:var(--muted);font:inherit;padding:12px 14px;border-radius:4px;cursor:pointer}
+.del{color:#E39A9A;border-color:rgba(227,154,154,.4)}
+.meta{font-size:11.5px;color:var(--muted);margin-top:10px}
+.warn{background:rgba(227,154,154,.12);border:1px solid rgba(227,154,154,.4);padding:10px 12px;margin:10px 0;font-size:13px}
+.wa{color:var(--paid);text-decoration:none;font-size:12px}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.grid{grid-template-columns:repeat(6,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<div class="wrap" id="login" hidden style="max-width:420px;padding-top:80px;text-align:center">
+  <div class="kick">La noche del Millón · uso interno</div><h1 class="foil" style="margin:6px 0 24px">Registro de entradas</h1>
+  <div id="lgForm">
+  <input id="lgMail" type="email" inputmode="email" placeholder="Tu mail" autocomplete="email" style="margin-bottom:10px">
+  <input id="lgPass" type="password" placeholder="Contraseña" autocomplete="current-password" style="margin-bottom:10px">
+  <button class="btn" id="lgBtn" style="width:100%">Entrar</button>
+  <button class="ghost" id="lgNew" style="width:100%;margin-top:10px">Es mi primera vez: crear mi contraseña</button>
+  <p style="color:var(--muted);font-size:12.5px;line-height:1.6;margin-top:14px">Solo pueden entrar los mails habilitados (FEC, Mauri y Juli). La sesión queda guardada en este dispositivo.</p></div>
+  <p id="lgMsg" style="color:var(--ink);font-size:14px;line-height:1.6"></p>
+</div>
+<div class="wrap" id="app" hidden>
+  <div class="top">
+    <div><div class="kick">La noche del Millón · uso interno</div><h1 class="foil">Registro de entradas</h1></div>
+    <div style="display:flex;gap:10px;align-items:center"><div id="sync" style="font-size:12px;color:var(--muted)">Conectando…</div><button class="ghost" id="out" style="padding:6px 10px;font-size:12px">Salir</button></div>
+  </div>
+
+  <div class="stats">
+    <div class="st"><span>Pagadas</span><b id="sPaid" style="color:var(--paid)">0</b></div>
+    <div class="st"><span>Pendientes</span><b id="sPend" style="color:var(--pend)">0</b></div>
+    <div class="st"><span>Libres</span><b id="sFree">100</b></div>
+    <div class="st"><span>Cobrado</span><b id="sMoney" class="foil">$0</b></div>
+  </div>
+  <div class="bar"><i id="bPaid" style="background:var(--paid)"></i><i id="bPend" style="background:var(--pend)"></i></div>
+
+  <div class="legend"><span><i style="background:var(--free)"></i>Libre</span><span><i style="background:var(--pend)"></i>Reservado, sin comprobante</span><span><i style="background:#8FA4FF"></i>Comprobante recibido: revisar</span><span><i style="background:#E37A7A"></i>Más de 12 h sin comprobante</span><span><i style="background:var(--paid)"></i>Pagado</span><span>· Tocá un número para cargar o editar</span></div>
+  <div class="grid" id="grid"></div>
+
+  <h2>Titulares y entradas</h2>
+  <div class="tools">
+    <input id="q" placeholder="Buscar nombre, DNI o número">
+    <button class="chip on" data-f="all">Todos</button><button class="chip" data-f="recv">A revisar</button><button class="chip" data-f="venc">Vencidas</button><button class="chip" data-f="pend">Pendientes</button><button class="chip" data-f="paid">Pagados</button><button class="chip" id="csv">Descargar planilla</button>
+  </div>
+  <div class="list" id="list"></div>
+</div>
+
+<div class="sheet" id="sheet">
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="pTitle">
+    <div class="ph"><div class="medal foil" id="pNum">001</div><div><div class="kick">Número de sorteo</div><div id="pTitle" style="font-size:16px;font-weight:500">Nueva venta</div></div></div>
+    <div id="dupe"></div>
+    <div class="f"><label>Titular (nombre y apellido)</label><input id="fNom"></div>
+    <div class="two">
+      <div class="f"><label>DNI</label><input id="fDni" inputmode="numeric"></div>
+      <div class="f"><label>Teléfono</label><input id="fTel" inputmode="tel"></div>
+    </div>
+    <div class="f"><label>Mail</label><input id="fMail" type="email" inputmode="email"></div>
+    <div class="f"><label>Invitados</label><input id="fAc" placeholder="Nombre y apellido de los invitados"></div>
+    <div id="extra"></div>
+    <label style="font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)">Estado</label>
+    <div class="seg"><button class="pend" data-e="pend">Pendiente</button><button class="paid" data-e="paid">Pagado</button></div>
+    <div class="two">
+      <div class="f"><label>Confirmó</label><select id="fPor"><option value="">—</option><option>Juli</option><option>Mauri</option><option>FEC</option></select></div>
+      <div class="f"><label>Medio</label><select id="fMed"><option>Transferencia</option><option>Efectivo</option><option>Otro</option></select></div>
+    </div>
+    <div class="f"><label>Nota</label><textarea id="fNota" rows="2" placeholder="Ej: comprobante recibido por WhatsApp"></textarea></div>
+    <div class="meta" id="pMeta"></div>
+    <div class="acts">
+      <button class="ghost" id="bClose">Cerrar</button>
+      <button class="ghost del" id="bFree">Liberar</button>
+      <button class="btn" id="bSave">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const sb=supabase.createClient('https://likeiavgirozxoyjunqw.supabase.co','sb_publishable_e_f650BfP5XY7lhnnQG5FA_jeKxMuiw');
+const TOTAL=100, PRICE=1000000;
+const pad=n=>String(n).padStart(3,'0');
+const $=id=>document.getElementById(id);
+let data={}, filt='all', cur=null, est='pend', confirmFree=false;
+const toEst=e=>e==='pagado'?'paid':'pend', fromEst=e=>e==='paid'?'pagado':'pendiente';
+const PLAZO=12*3600e3;
+function vis(r){ if(r.estado==='pagado')return 'paid'; if(r.comprobante)return 'recv'; if(Date.now()-new Date(r.creado).getTime()>PLAZO)return 'venc'; return 'pend'; }
+const LBL={paid:'Pagado',recv:'A revisar',venc:'Vencida',pend:'Pendiente'};
+const SITE=new URL('.',location.href).href;
+
+function render(){
+  const g=$('grid'); g.innerHTML=''; let paid=0,pend=0;
+  for(let i=1;i<=TOTAL;i++){
+    const k=pad(i), r=data[i];
+    const b=document.createElement('button');
+    b.className='n'+(r?' '+vis(r):''); b.textContent=k; b.title=r?r.nombre:'Libre';
+    b.onclick=()=>open(i); g.appendChild(b);
+    if(r){r.estado==='pagado'?paid++:pend++;}
+  }
+  $('sPaid').textContent=paid;$('sPend').textContent=pend;$('sFree').textContent=TOTAL-paid-pend;
+  $('sMoney').textContent='$'+(paid*PRICE).toLocaleString('es-AR');
+  $('bPaid').style.width=(paid/TOTAL*100)+'%';$('bPend').style.width=(pend/TOTAL*100)+'%';
+  const q=$('q').value.trim().toLowerCase();
+  const rows=Object.values(data).filter(r=>(filt==='all'||vis(r)===filt)&&(!q||pad(r.numero).includes(q)||(r.nombre||'').toLowerCase().includes(q)||(r.dni||'').includes(q)||(r.email||'').includes(q)||(r.acompanante||'').toLowerCase().includes(q))).sort((a,b)=>a.numero-b.numero);
+  const L=$('list'); L.innerHTML='';
+  if(!rows.length){L.innerHTML='<div class="empty">Sin ventas todavía</div>';return}
+  const groups={};
+  rows.forEach(r=>{const k=r.dni||('n'+r.numero);(groups[k]=groups[k]||[]).push(r)});
+  Object.values(groups).sort((a,b)=>a[0].numero-b[0].numero).forEach(g=>{
+    const t=g[0], box=document.createElement('div');box.className='grp';
+    const pagas=g.filter(r=>r.estado==='pagado').length;
+    const h=document.createElement('div');h.className='gh';
+    h.innerHTML='<div><span class="lbl">Titular</span><b></b><small></small></div><span class="cnt"></span>';
+    h.querySelector('b').textContent=t.nombre||'—';
+    h.querySelector('small').textContent=['DNI '+(t.dni||'—'),t.telefono,t.email].filter(Boolean).join(' · ');
+    h.querySelector('.cnt').textContent=g.length+(g.length>1?' entradas':' entrada')+' · '+pagas+' pagada'+(pagas===1?'':'s');
+    box.appendChild(h);
+    g.forEach(r=>{
+      const d=document.createElement('div');d.className='row';const e=vis(r);
+      d.innerHTML=`<span class="num foil"></span><div class="who"><b></b><small></small></div><span class="tag ${e==='recv'||e==='venc'?e:toEst(r.estado)}">${LBL[e]}</span>`;
+      d.querySelector('.num').textContent=pad(r.numero);
+      d.querySelector('b').textContent=r.acompanante?'Invitados: '+r.acompanante:'Sin invitados cargados';
+      d.querySelector('small').textContent=[r.comprobante?'📎 comprobante':'Sin comprobante',r.confirmo?'confirmó '+r.confirmo:''].filter(Boolean).join(' · ');
+      d.onclick=()=>open(r.numero);box.appendChild(d);
+    });
+    L.appendChild(box);
+  });
+}
+function setEst(e){est=e;document.querySelectorAll('.seg button').forEach(b=>b.classList.toggle('on',b.dataset.e===e))}
+function open(n){
+  cur=n;const r=data[n]||{};
+  $('pNum').textContent=pad(n);$('pTitle').textContent=r.nombre||'Nueva venta';
+  $('fNom').value=r.nombre||'';$('fDni').value=r.dni||'';$('fTel').value=r.telefono||'';$('fAc').value=r.acompanante||'';$('fMail').value=r.email||'';
+  $('fPor').value=r.confirmo||'';$('fMed').value=r.medio||'Transferencia';$('fNota').value=r.nota||'';
+  setEst(r.estado?toEst(r.estado):'pend');
+  $('bFree').style.display=data[n]?'':'none';confirmFree=false;$('bFree').textContent='Liberar';
+  const m=$('pMeta');m.textContent='';
+  if(r.creado) m.append((r.origen==='web'?'Reservó desde la web el ':'Cargado el ')+new Date(r.creado).toLocaleString('es-AR',{dateStyle:'short',timeStyle:'short'}));
+  if(r.telefono){const a=document.createElement('a');a.className='wa';a.target='_blank';a.rel='noopener';let t=r.telefono.replace(/\D/g,'');if(!t.startsWith('54'))t='549'+t;a.href='https://wa.me/'+t;a.textContent=' · Abrir WhatsApp';m.appendChild(a);}
+  const x=$('extra');x.innerHTML='';
+  if(r.comprobante){const b=document.createElement('button');b.className='lnk';b.textContent='📎 Ver comprobante'+(r.comprobante_at?' ('+new Date(r.comprobante_at).toLocaleString('es-AR',{dateStyle:'short',timeStyle:'short'})+')':'');
+    b.onclick=async()=>{const w=window.open('','_blank');const {data,error}=await sb.storage.from('comprobantes').createSignedUrl(r.comprobante,300);if(error||!data){w&&w.close();alert('No se pudo abrir el comprobante');return}if(w)w.location=data.signedUrl;else location.href=data.signedUrl};x.appendChild(b);}
+  if(data[n]){const w=document.createElement('div');w.className='upl';w.innerHTML='<label><input type="file" accept="image/*,application/pdf"><span>'+(r.comprobante?'Reemplazar comprobante':'＋ Cargar comprobante (foto o PDF)')+'</span></label>';
+    const inp=w.querySelector('input');inp.onchange=async()=>{const f=inp.files[0];if(!f)return;w.querySelector('span').textContent='Subiendo…';
+      const ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,5)||'jpg';
+      const path=n+'/'+(r.codigo||'MANUAL')+'/'+Date.now()+'.'+ext;
+      const up=await sb.storage.from('comprobantes').upload(path,f,{contentType:f.type||'application/octet-stream',upsert:false});
+      if(up.error){alert('No se pudo subir: '+up.error.message);w.querySelector('span').textContent='＋ Cargar comprobante (foto o PDF)';return}
+      const {error}=await sb.from('entradas').update({comprobante:path,comprobante_at:new Date().toISOString()}).eq('numero',n);
+      if(error){alert('No se pudo guardar: '+error.message);return}
+      await refresh();open(n);};
+    x.appendChild(w);}
+  if(r.codigo){const u=SITE+'v.html?n='+r.numero+'&c='+r.codigo;const box=document.createElement('div');box.className='qrbox';box.innerHTML='<div class="q"></div><small></small>';
+    box.querySelector('small').textContent='Código '+r.codigo+' · QR de verificación'+(r.mail_enviado?' · mail enviado':'');x.appendChild(box);new QRCode(box.querySelector('.q'),{text:u,width:192,height:192});}
+  checkDupe();$('sheet').classList.add('on');
+}
+function checkDupe(){
+  const dni=$('fDni').value.replace(/\D/g,'');
+  const other=dni.length>=7?Object.values(data).filter(r=>r.numero!==cur&&r.dni===dni).map(r=>pad(r.numero)):[];
+  $('dupe').innerHTML=other.length?`<div class="warn">Este DNI también tiene el número ${other.join(', ')}.</div>`:'';
+}
+function close(){$('sheet').classList.remove('on');cur=null}
+async function save(){
+  const rec={numero:cur,nombre:$('fNom').value.trim(),dni:$('fDni').value.replace(/\D/g,''),telefono:$('fTel').value.trim(),email:$('fMail').value.trim().toLowerCase()||null,acompanante:$('fAc').value.trim(),
+    estado:fromEst(est),confirmo:$('fPor').value||null,medio:$('fMed').value,nota:$('fNota').value.trim(),actualizado:new Date().toISOString()};
+  if(!rec.nombre){$('fNom').focus();return}
+  if(!rec.dni){$('fDni').focus();return}
+  let error;
+  if(!data[cur]){ rec.origen='manual'; ({error}=await sb.from('entradas').insert(rec));
+    if(error&&error.code==='23505'){alert('Ese número se acaba de reservar desde la web. Revisalo antes de cargarlo.');close();refresh();return} }
+  else { ({error}=await sb.from('entradas').update(rec).eq('numero',cur)); }
+  if(error){alert('No se pudo guardar: '+error.message);return}
+  close();refresh();
+}
+async function free(){
+  if(!confirmFree){confirmFree=true;$('bFree').textContent='¿Seguro? Tocá de nuevo';return}
+  const {error}=await sb.from('entradas').delete().eq('numero',cur);
+  if(error){alert('No se pudo liberar: '+error.message);return}
+  close();refresh();
+}
+async function refresh(){
+  const {data:rows,error}=await sb.from('entradas').select('*');
+  if(error){$('sync').textContent='Error: '+error.message;return}
+  data={};rows.forEach(r=>data[r.numero]=r);render();
+  $('sync').textContent='● Actualizado '+new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});$('sync').style.color='var(--paid)';
+}
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>setEst(b.dataset.e));
+document.querySelectorAll('.chip[data-f]').forEach(c=>c.onclick=()=>{filt=c.dataset.f;document.querySelectorAll('.chip[data-f]').forEach(x=>x.classList.toggle('on',x===c));render()});
+$('q').oninput=render;$('fDni').oninput=checkDupe;
+$('bClose').onclick=close;$('bSave').onclick=save;$('bFree').onclick=free;
+$('sheet').onclick=e=>{if(e.target.id==='sheet')close()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+$('csv').onclick=e=>{e.stopPropagation();
+  const HEAD={numero:'Número',nombre:'Titular',dni:'DNI',telefono:'Celular',email:'Mail',acompanante:'Invitados',estado:'Estado',comprobante:'Comprobante',confirmo:'Confirmó',medio:'Medio',nota:'Nota',codigo:'Código',creado:'Reservó'};
+  const cols=['numero','nombre','dni','telefono','email','acompanante','estado','comprobante','confirmo','medio','nota','codigo','creado'];
+  const esc=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+  const rows=Object.values(data).sort((a,b)=>a.numero-b.numero).map(r=>cols.map(c=>c==='comprobante'?(r.comprobante?'sí':'no'):r[c]).map(esc).join(';'));
+  const blob=new Blob(['\ufeff'+cols.map(c=>HEAD[c]).join(';')+'\n'+rows.join('\n')],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='entradas-noche-del-millon-'+new Date().toISOString().slice(0,10)+'.csv';a.click();};
+$('out').onclick=async()=>{await sb.auth.signOut();location.reload()};
+function lgVals(){const email=$('lgMail').value.trim().toLowerCase(),pass=$('lgPass').value;
+  if(!email.includes('@')){$('lgMail').focus();return null} if(pass.length<6){$('lgMsg').textContent='La contraseña tiene que tener al menos 6 caracteres.';$('lgPass').focus();return null} return {email,pass}}
+$('lgBtn').onclick=async()=>{const v=lgVals();if(!v)return;$('lgBtn').textContent='Entrando…';$('lgMsg').textContent='';
+  const {error}=await sb.auth.signInWithPassword({email:v.email,password:v.pass});
+  $('lgBtn').textContent='Entrar';
+  if(error){$('lgMsg').textContent=/invalid/i.test(error.message)?'Mail o contraseña incorrectos. Si es tu primera vez, tocá "crear mi contraseña".':'No se pudo entrar: '+error.message;return}
+  start();};
+$('lgNew').onclick=async()=>{const v=lgVals();if(!v)return;$('lgNew').textContent='Creando…';$('lgMsg').textContent='';
+  const {data,error}=await sb.auth.signUp({email:v.email,password:v.pass});
+  $('lgNew').textContent='Es mi primera vez: crear mi contraseña';
+  if(error){$('lgMsg').textContent=/registered|exists/i.test(error.message)?'Ese mail ya tiene usuario: usá "Entrar". Si no recordás la contraseña, pedile a Juli que lo reinicie.':'No se pudo crear: '+error.message;return}
+  if(!data.session){$('lgMsg').textContent='Ese mail ya tiene usuario o falta un ajuste en Supabase. Avisale a Juli.';return}
+  start();};
+$('lgPass').addEventListener('keydown',e=>{if(e.key==='Enter')$('lgBtn').click()});
+async function start(){
+  const {data:{session}}=await sb.auth.getSession();
+  if(!session){$('login').hidden=false;$('app').hidden=true;return}
+  const {data:ok}=await sb.rpc('es_admin');
+  if(!ok){$('login').hidden=false;$('lgForm').hidden=true;$('lgMsg').textContent='El mail '+session.user.email+' no tiene acceso al registro. Pedile a Juli que lo habilite.';
+    const b=document.createElement('button');b.className='ghost';b.textContent='Probar con otro mail';b.onclick=async()=>{await sb.auth.signOut();location.reload()};$('lgMsg').after(b);return}
+  $('login').hidden=true;$('app').hidden=false;render();refresh();
+  setInterval(()=>{if(!document.hidden)refresh()},15000);
+}
+sb.auth.onAuthStateChange((ev)=>{if(ev==='SIGNED_IN'&&$('app').hidden)start()});
+start();
+</script>
+</body>
+</html>
